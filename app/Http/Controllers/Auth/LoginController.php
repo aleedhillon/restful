@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
@@ -76,5 +77,25 @@ class LoginController extends Controller
         $this->incrementLoginAttempts($request);
 
         return $this->sendFailedLoginResponse($request);
+    }
+
+    /**
+     * Log the user out of the application.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function logout(Request $request)
+    {
+        $user = $request->user('api');
+        // dump($user);
+        if ($user) {
+            $user->api_token = null;
+            $user->save();
+            return response()->json(['data' => 'User: ' . $user->name . ' has been logged out'], 200);
+        }
+
+        return response()->json(['data' => 'You are not logged in'], 401);
+        
     }
 }
