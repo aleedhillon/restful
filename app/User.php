@@ -26,7 +26,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
+        'password', 'remember_token', 'api_token'
     ];
 
     /**
@@ -40,9 +40,10 @@ class User extends Authenticatable
 
     public function generateToken()
     {
-        $this->api_token = hash('sha256', Str::random(60));
+        $token = Str::random(60);
+        $this->api_token = hash('sha256', $token);
         $this->save();
 
-        return $this->api_token;
+        return $token;
     }
 }

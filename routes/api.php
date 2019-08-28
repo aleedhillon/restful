@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\LoginController;
 use Illuminate\Http\Request;
 
 /*
@@ -14,9 +15,13 @@ use Illuminate\Http\Request;
 */
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+    return response()->json(['data' => ['user' => $request->user(), 'message' => 'Its working']]);
 })->name('user.show');
 
-Route::post('register', 'Auth\RegisterController@register')->name('user.register');
+Route::namespace('Auth')->name('user.')->group(function(){
+    Route::post('register', 'RegisterController@register')->name('register');
+    Route::post('login', 'LoginController@login')->name('login');
+});
+
 
 Route::resource('article', 'ArticleController', ['except' => ['edit', 'create']]);
