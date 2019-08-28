@@ -17,4 +17,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 })->name('user.show');
 
+Route::post('register', 'Auth\RegisterController@register')->name('user.register');
+
 Route::resource('article', 'ArticleController', ['except' => ['edit', 'create']]);
