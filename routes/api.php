@@ -24,4 +24,4 @@ Route::namespace('Auth')->name('user.')->group(function(){
 });
 
 
-Route::resource('article', 'ArticleController', ['except' => ['edit', 'create']]);
+Route::resource('articles', 'ArticleController', ['except' => ['edit', 'create']]);

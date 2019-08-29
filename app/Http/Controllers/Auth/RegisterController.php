@@ -82,6 +82,6 @@ class RegisterController extends Controller
     {
         $token = $user->generateToken();
 
-        return response()->json(['data' => ['data' => $user, 'api_token' => $token]], 200);
+        return response()->json(['data' => ['user' => $user, 'api_token' => $token]], 200);
     }
 }

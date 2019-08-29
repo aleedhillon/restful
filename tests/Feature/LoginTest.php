@@ -15,8 +15,11 @@ class LoginTest extends TestCase
         $this->json('POST', 'api/login')
                 ->assertStatus(422)
                 ->assertJson([
-                    'email' => ['The email field is required.'],
-                    'password' => ['The password field is required']
+                    'message' => 'The given data was invalid.',
+                    'errors' => [
+                        'email' => ['The email field is required.'],
+                        'password' => ['The password field is required.']
+                    ]
                 ]);
     }
 
